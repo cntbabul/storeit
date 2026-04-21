@@ -19,6 +19,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { createAccount, signInUser } from "@/lib/actions/user.actions";
 import OtpModal from "@/components/OTPModal";
+import { clonePageVaryPathWithNewSearchParams } from "next/dist/client/components/segment-cache/vary-path";
 
 type FormType = "sign-in" | "sign-up";
 
@@ -43,6 +44,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
         },
     });
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        // console.log(values);
         setIsLoading(true);
         setErrorMessage("");
 
