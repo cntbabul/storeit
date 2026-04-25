@@ -1,0 +1,97 @@
+/* eslint-disable no-unused-vars */
+import { Models } from "node-appwrite";
+import React from "react";
+
+export type FileType = "document" | "image" | "video" | "audio" | "other";
+
+export interface AppwriteUser extends Models.Document {
+    fullName: string;
+    email: string;
+    avatar: string;
+    accountId: string;
+}
+
+export interface AppwriteFile extends Models.Document {
+    name: string;
+    url: string;
+    type: FileType;
+    bucketFileId: string;
+    accountId: string;
+    extension: string;
+    size: string;
+    ownerFullName?: string;
+    users: string[];
+}
+
+export interface ActionType {
+    label: string;
+    icon: string;
+    value: string;
+}
+
+export interface SearchParamProps {
+    params?: Promise<SegmentParams>;
+    searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export interface UploadFileProps {
+    file: File;
+    ownerId: string;
+    accountId: string;
+    path: string;
+}
+export interface GetFilesProps {
+    types?: FileType[];
+    searchText?: string;
+    sort?: string;
+    limit?: number;
+}
+export interface RenameFileProps {
+    fileId: string;
+    name: string;
+    extension: string;
+    path: string;
+}
+export interface UpdateFileUsersProps {
+    fileId: string;
+    emails: string[];
+    path: string;
+}
+export interface DeleteFileProps {
+    fileId: string;
+    bucketFileId: string;
+    path: string;
+}
+
+export interface FileUploaderProps {
+    ownerId: string;
+    accountId: string;
+    className?: string;
+}
+
+export interface MobileNavigationProps {
+    ownerId: string;
+    accountId: string;
+    fullName: string;
+    avatar: string;
+    email: string;
+}
+export interface SidebarProps {
+    fullName: string;
+    avatar: string;
+    email: string;
+}
+
+export interface ThumbnailProps {
+    type: string;
+    extension: string;
+    url: string;
+    className?: string;
+    imageClassName?: string;
+}
+
+export interface ShareInputProps {
+    file: Models.Document;
+    onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onRemove: (email: string) => void;
+}
