@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "www.gstatic.com",
+      },
+      {
+        protocol: "https",
         hostname: "sgp.cloud.appwrite.io",
       },
     ],

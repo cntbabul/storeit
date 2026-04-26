@@ -86,11 +86,43 @@ export const getCurrentUser = async () => {
             appwriteConfig.usersCollectionId,
             [Query.equal("accountId", result.$id)]
         );
-        if (user.total <= 0) return null;
+
+        if (user.total <= 0) {
+            // Create user document if it doesn't exist (e.g. after Google Login)
+            const newUser = await databases.createDocument(
+                appwriteConfig.databaseId,
+                appwriteConfig.usersCollectionId,
+                ID.unique(),
+                {
+                    fullName: result.name || result.email.split("@")[0],
+                    email: result.email,
+                    avatar: avatarPlaceholderUrl,
+                    accountId: result.$id,
+                }
+            );
+            return parseStringify(newUser);
+        }
 
         return parseStringify(user.documents[0]);
-    } catch {
+    } catch (error) {
+        console.log("getCurrentUser error:", error);
         return null;
+    }
+}
+
+export const syncSession = async (sessionSecret: string) => {
+    try {
+        const { cookies } = await import("next/headers");
+        (await cookies()).set("appwrite-session", sessionSecret, {
+            path: "/",
+            httpOnly: true,
+            sameSite: "strict",
+            secure: true,
+        });
+        return true;
+    } catch (error) {
+        console.log("Error syncing session:", error);
+        return false;
     }
 }
 

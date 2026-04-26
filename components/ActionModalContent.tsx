@@ -25,9 +25,9 @@ const ImageThumbnail = ({ file }: { file: AppwriteFile }) => {
 };
 const DetailRow = ({ label, value }: { label: string, value?: string }) => {
     return (
-        <div className="flex">
+        <div className="flex justify-between">
             <p className="file-details-label text-left">{label}</p>
-            <p className="file-details-value text-left">{value || "—"}</p>
+            <p className="file-details-value text-left flex-1">{value || "—"}</p>
         </div>
 
     )

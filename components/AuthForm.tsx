@@ -124,6 +124,42 @@ const AuthForm = ({ type }: { type: FormType }) => {
                         )}
                     </Button>
 
+                    <div className="flex flex-col gap-4 mt-4">
+                        <div className="flex items-center gap-2">
+                            <div className="h-[1px] flex-1 bg-light-400" />
+                            <p className="body-2 text-light-200">OR</p>
+                            <div className="h-[1px] flex-1 bg-light-400" />
+                        </div>
+
+                        <Button
+                            type="button"
+                            variant="outline"
+                            className="google-button"
+                            onClick={async () => {
+                                try {
+                                    const { account } = await import("@/lib/appwrite/client");
+                                    const { OAuthProvider } = await import("appwrite");
+                                    await account.createOAuth2Session(
+                                        OAuthProvider.Google,
+                                        `${window.location.origin}/auth-callback`,
+                                        `${window.location.origin}/sign-in`,
+                                    );
+                                } catch (error) {
+                                    setErrorMessage("Google login failed. Please try again.");
+                                }
+                            }}
+                        >
+                            <Image
+                                src="/assets/icons/google.svg"
+                                alt="google"
+                                width={20}
+                                height={20}
+                                className="mr-2"
+                            />
+                            Continue with Google
+                        </Button>
+                    </div>
+
                     {errorMessage && <p className="error-message">*{errorMessage}</p>}
 
                     <div className="body-2 flex justify-center">

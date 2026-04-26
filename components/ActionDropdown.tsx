@@ -110,7 +110,7 @@ const ActionDropdown = ({ file }: { file: AppwriteFile }) => {
     return (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger className="shad-no-focus p-2 hover:bg-brand/10 rounded-full transition-all cursor-pointer">
                     <Image
                         src="/assets/icons/dots.svg"
                         alt="dots"

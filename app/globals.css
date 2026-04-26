@@ -399,6 +399,9 @@
 @utility uploader-button {
   @apply primary-btn h-[52px] gap-2 px-10 shadow-drop-1;
 }
+@utility google-button {
+  @apply flex items-center justify-center h-[52px] w-full gap-2 rounded-full border border-light-400 bg-white subtitle-2 text-light-100 transition-all hover:bg-light-300;
+}
 @utility uploader-preview-list {
   @apply fixed bottom-10 right-10 z-50 flex size-full h-fit max-w-[480px] flex-col gap-3 rounded-[20px] bg-white p-7 shadow-drop-3;
 }
@@ -470,7 +473,7 @@
   @apply mt-9 flex-1 gap-1 text-brand;
 }
 @utility sidebar-nav-item {
-  @apply flex text-light-100 gap-4 rounded-xl lg:w-full justify-center lg:justify-start items-center h5 lg:px-[30px] h-[52px] lg:rounded-full;
+  @apply flex text-light-100 gap-4 rounded-xl lg:w-full justify-center lg:justify-start items-center h5 lg:px-[30px] h-[52px] lg:rounded-full transition-all;
 }
 @utility sidebar-user-info {
   @apply mt-4 flex items-center justify-center gap-2 rounded-full bg-brand/10 p-1 text-light-100 lg:justify-start lg:p-3;

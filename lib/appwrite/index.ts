@@ -10,11 +10,16 @@ export const createSessionClient = async () => {
         .setEndpoint(appwriteConfig.endpointUrl)
         .setProject(appwriteConfig.projectId);
 
-    const session = (await cookies()).get("appwrite-session")
+    const session = (await cookies()).get("appwrite-session") || (await cookies()).get(`a_session_${appwriteConfig.projectId.toLowerCase()}`);
 
     if (!session || !session.value) throw new Error("No session")
 
-    client.setSession(session.value)
+    if (session.value.startsWith("ey")) {
+        client.setJWT(session.value)
+    } else {
+        client.setSession(session.value)
+    }
+
     return {
         get account() {
             return new Account(client)
