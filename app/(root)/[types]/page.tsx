@@ -3,21 +3,25 @@ import { AppwriteFile, FileType, SearchParamProps } from "@/types";
 import Sort from "@/components/Sort";
 import { getFiles } from "@/lib/actions/file.actions";
 import Card from "@/components/Card";
+import { convertFileSize } from "@/lib/utils";
 
 
-const page = async ({ params }: SearchParamProps) => {
+
+const page = async ({ searchParams, params }: SearchParamProps) => {
     const type = ((await params)?.types as string) || "";
     // console.log("type: ", type)
+    const searchText = ((await searchParams)?.query as string) || "";
+    const sort = ((await searchParams)?.sort as string) || "";
 
     const typeMap: Record<string, FileType[]> = {
         documents: ["document"],
-        images:    ["image"],
-        media:     ["video", "audio"],
-        others:    ["other"],
+        images: ["image"],
+        media: ["video", "audio"],
+        others: ["other"],
     };
     const types = typeMap[type] ?? [];
 
-    const files = await getFiles({ types });
+    const files = await getFiles({ types, searchText, sort });
 
     return (
         <div className="page-container">
@@ -26,7 +30,7 @@ const page = async ({ params }: SearchParamProps) => {
 
                 <div className="total-size-section">
                     <p className="body-1">
-                        Total: <span className="h5">0 MB</span>
+                        Total: <span className="h5">{convertFileSize(files.documents.reduce((total: number, file: AppwriteFile) => total + Number(file.size), 0))}</span>
                     </p>
                     <div className="sort-container">
                         <p className="body-1 hidden sm:block text-light-200">Sort by:</p>

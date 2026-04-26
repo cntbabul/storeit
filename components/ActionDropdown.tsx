@@ -56,8 +56,11 @@ const ActionDropdown = ({ file }: { file: AppwriteFile }) => {
     };
     const handleRemoveUser = async (email: string) => {
         const updatedEmails = emails.filter((e) => e !== email);
-        setEmails(updatedEmails);
-        await updateFileUsers({ fileId: file.$id, emails: updatedEmails, path });
+        //setEmails(updatedEmails);
+        const success = await updateFileUsers({ fileId: file.$id, emails: updatedEmails, path });
+        if (success) setEmails(updatedEmails)
+        closeAllModals()
+
     };
 
     const renderDialogContent = () => {

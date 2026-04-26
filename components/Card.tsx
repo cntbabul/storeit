@@ -11,7 +11,7 @@ const Card = ({ file }: { file: AppwriteFile }) => {
     return (
         <Link href={file.url} target="_blank" className="file-card">
             <div className="flex justify-between">
-                <Thumbnail type={file.type} extension={file.extension} url={file.url} className="!size-20" imageClassName="!size-11" />
+                <Thumbnail type={file.type} extension={file.extension} url={file.url} className="!size-20" />
                 <div className="flex flex-col items-end justify-between">
                     <ActionDropdown file={file} />
                     <p className="body-1">{convertFileSize(Number(file.size))}</p>
